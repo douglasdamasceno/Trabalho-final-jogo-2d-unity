@@ -33,7 +33,7 @@ public class MovimentacaoPartular : MonoBehaviour
     }
     void verificaColisao()
     {
-        if (!Physics2D.Raycast(limite.position,Vector2.down,0.1f))
+        if (!Physics2D.Raycast(limite.position,Vector2.down,1f))
         {
             flip();
         }
@@ -53,5 +53,21 @@ public class MovimentacaoPartular : MonoBehaviour
         }
         transform.localScale = temp;
     
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("inimigo"))
+        {
+            GameObject[] otherObjects = GameObject.FindGameObjectsWithTag("inimigo");
+
+            foreach (GameObject obj in otherObjects)
+            {
+                Physics2D.IgnoreCollision(obj.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            }
+
+            //Physics2D.IgnoreLayerCollision(11,11);
+//Physics2D.IgnoreCollision( collision.gameObject.GetComponents<Collider2D>(), GetComponent<Collider2D>());
+
+        }
     }
 }

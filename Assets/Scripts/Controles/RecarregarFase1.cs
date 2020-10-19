@@ -17,4 +17,8 @@ public class RecarregarFase1 : MonoBehaviour
     {
         SceneManager.LoadScene("Fase1");
     }
+    public void VoltarAoMenu()
+    {
+        SceneManager.LoadScene("MenuInicial");
+    }
 }

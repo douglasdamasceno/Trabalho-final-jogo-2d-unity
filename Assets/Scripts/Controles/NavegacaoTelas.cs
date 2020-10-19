@@ -27,4 +27,8 @@ public class NavegacaoTelas : MonoBehaviour
     {
         SceneManager.LoadScene("Creditos");
     }
+    public void FecharJogo()
+    {
+        Application.Quit();
+    }
 }

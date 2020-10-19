@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class moveBala : MonoBehaviour
 {
-    private float vel = 15.5f;
+    private float vel = 40.5f;
     public bool direcaoDireita;
     public float Vel
     {
@@ -30,6 +30,13 @@ public class moveBala : MonoBehaviour
         Destroy(this.gameObject, 2);
     }
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("inimigo"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("inimigo"))
         {

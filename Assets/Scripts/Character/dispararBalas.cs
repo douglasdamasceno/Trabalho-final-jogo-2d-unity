@@ -9,35 +9,29 @@ public class dispararBalas : MonoBehaviour
     public AudioClip shoot;
     
     private Animator animator;
-
+    
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        //Quaternion canoRotation;
     }
         void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-           // canoRotation = cano.transform.rotation;
+        
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject balaInstanciada = Instantiate(balas, cano.transform.position, Quaternion.identity) as GameObject;
+                balaInstanciada.GetComponent<moveBala>().Vel *= transform.localScale.x;
+                GetComponent<AudioSource>().PlayOneShot(shoot);
 
-           // Vector3 rotacao = canoRotation.eulerAngles;
-            //rotacao.y *= -1;
-            //canoRotation.eulerAngles = rotacao;
-            //cano.transform.rotation = canoRotation;
-
-            GameObject balaInstanciada = Instantiate(balas, cano.transform.position, Quaternion.identity) as GameObject;
-            balaInstanciada.GetComponent<moveBala>().Vel *= transform.localScale.x;
-            GetComponent<AudioSource>().PlayOneShot(shoot);
-
-            animator.SetBool("atirando", true);
+                animator.SetBool("atirando", true);
            
-        }
+            }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            animator.SetBool("atirando", false);
-        }
+            if (Input.GetMouseButtonUp(0))
+            {
+                animator.SetBool("atirando", false);
+            }
+        
     }
 }

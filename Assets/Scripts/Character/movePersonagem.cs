@@ -4,19 +4,18 @@ using UnityEngine;
 public class movePersonagem : MonoBehaviour
 {
     [Header("MOVIMENTAÇÃO")]
-    float vel = 3.0f;
+    float vel = 5.0f;
     float move = 0;
     [Header("ANIMAÇÃO")]
     private Animator animator;
     private bool paraDireita;
     public Transform playerTransform;
     int puloDuplo;
-    public GameObject bala;
 
 
     [Header("SONS")]
     Rigidbody2D rbPlayer;
-    float forca = 350;
+    float forca = 320f;
     
     public GameObject cano;
     [Header("SONS")]
@@ -25,11 +24,13 @@ public class movePersonagem : MonoBehaviour
     Quaternion canoRotation;
     [Header("Nova movimetcao")]
     bool noChao;
-    bool pulando;
     public Transform groundCheck;
+
+    public bool isPause;
 
     void Start()
     {
+        isPause = false;
         animator = GetComponent<Animator>();
         rbPlayer = GetComponent<Rigidbody2D>();
         playerTransform = GetComponent<Transform>();
@@ -46,56 +47,46 @@ public class movePersonagem : MonoBehaviour
 
         transform.Translate(new Vector3(move * Time.deltaTime * vel, 0, 0));
 
-        if (move != 0)
+        isPause = this.gameObject.GetComponent<PauseGame>().PAUSADO;
+        if (!isPause)
         {
-            if (move < 0 && paraDireita)
+
+
+            if (move != 0)
             {
-                flip();
-                transform.Translate(new Vector3(move * Time.deltaTime * vel * -1, 0, 0));
+                if (move < 0 && paraDireita)
+                {
+                    flip();
+                    transform.Translate(new Vector3(move * Time.deltaTime * vel * -1, 0, 0));
+                }
+                else if (move > 0 && !paraDireita)
+                {
+                    flip();
+                    transform.Translate(new Vector3(move * Time.deltaTime * vel * -1, 0, 0));
+                }
+
+                animator.SetBool("correndo", true);
+                animator.SetBool("parado", false);
+                animator.SetBool("atirando", false);
             }
-            else if (move > 0 && !paraDireita)
+            else
             {
-                flip();
-                transform.Translate(new Vector3(move * Time.deltaTime * vel * -1, 0, 0));
+                animator.SetBool("correndo", false);
+                animator.SetBool("parado", true);
+
+
             }
-            animator.SetBool("correndo", true);
-            animator.SetBool("parado", false);
-            animator.SetBool("atirando", false);
-        }
-        else
-        {
-            animator.SetBool("correndo", false);
-            animator.SetBool("parado", true);
 
 
-        }
-
-        
-        if (puloDuplo > 0 || noChao)
+            if (puloDuplo > 0 || noChao)
             {
-            pulando = true;
-            Jump();
 
+                Jump();
+
+            }
         }
-        else
-        {
-            pulando = false;
-        }
-        
     }
-    private void FixedUpdate()
-    {
-        //if (pulando)
-       // {
-        //    Jump();
-       // }
-       // else
-       // {
-        //    animator.SetBool("pulando", false);
-         //   puloDuplo = 2;
-         //   pulando = false;
-        //}
-    }
+   
     void flip()
     {
         paraDireita = !paraDireita;

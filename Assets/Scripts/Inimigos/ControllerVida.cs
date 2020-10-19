@@ -37,20 +37,18 @@ public class ControllerVida : MonoBehaviour
        
         if (this.vida<= 0)
         {
+            this.vida = 0;
             animator.SetBool("atacar", false);
             animator.SetBool("morrer", true);
-            Destroy(this.gameObject,1);
+            Destroy(this.gameObject,0.5f);
         }
        
-            updateBarraDeVida();
+        updateBarraDeVida();
         
     }
     void Update()
     {
-        if (vida > 0)
-        {
-
-        }
+      
         
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -79,12 +77,7 @@ public class ControllerVida : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.gameObject.CompareTag("bala"))
-        {
-            print("TRIGGER");
-            Destroy(Instantiate(particulaSangue, collision.gameObject.transform.position, collision.gameObject.transform.rotation), 2);
-            tomarDano(25);
-        }
+       
     }
 
 

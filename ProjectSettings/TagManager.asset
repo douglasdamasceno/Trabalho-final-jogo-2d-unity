@@ -7,6 +7,8 @@ TagManager:
   - chao
   - inimigo
   - bala
+  - capsulaVida
+  - capsulaEnergia
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - heroi
   - chao
   - BG
-  - 
+  - inimigo
   - 
   - 
   - 
